@@ -1,44 +1,107 @@
-# IntroToSql
+# Intro to SQL
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/intro_to_sql`. To experiment with that code, run `bin/console` for an interactive prompt.
+# Intro to SQL
 
-TODO: Delete this and the text above, and describe your gem
+### Learning Goals:
+- [x] Explain persistence, the need for using SQL, and difference between SQLite3 and SQL
+    * Explore provided data through [DB Browser for SQLite Browser](https://sqlitebrowser.org/)
+    * Also, the [Sqlite extension for VSCode](https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite) is a good resource for navigating through your DB right within VSCode.
+- [x] Perform CRUD actions on a single table
+- [x] Explore how to use sqlite3 with ruby file
+- [x] Perform CRUD actions across related tables
 
-## Installation
+---
+* **Explain persistence and the need for using SQL**
+    * Persistence
+        * Data is there no matter if we closed the program
+    * Define SQL
+        * SQL stands for Structured Query Language and is a language that allows us to do:
+            * Store / persist information
+            * Manipulate that information
+        * What is sql is for?
+            * Information persistence
+            * Want stuff to stick around after the program ends
+            * Allow our data manipulation code to be programming language agnostic
+        * What kind of operations can we do in SQL?
+            * CRUD
+    * Explain the difference between SQLite and SQL**
+        * SQL is a query language. Sqlite is an embeddable open source relational database management system (RDBMS). Other examples include PostgresQL, MySQL, SQLServer, Oracle Database. The first 2 of these are open source, the rest are not and require some sort of account to access. These are sometimes used for internal corporate databases.
+ 
+    * Explore provided data through SQLite Browser**
+        * Open ‘chinook.db’ in SQLite Browser
+        * How to see the data?
+        * How to open sqlite3 in terminal
+        * Database schema
+    
+* **Perform CRUD actions on a single table**
+1. Write the SQL to return all of the rows in the artists table?
 
-Add this line to your application's Gemfile:
+```SQL
 
-```ruby
-gem 'intro_to_sql'
 ```
 
-And then execute:
+2. Write the SQL to select the artist with the name "Black Sabbath"
 
-    $ bundle install
+```SQL
 
-Or install it yourself as:
+```
 
-    $ gem install intro_to_sql
+3. Write the SQL to create a table named 'fans' with an autoincrementing ID that's a primary key and a name field of type text
 
-## Usage
+```sql
 
-TODO: Write usage instructions here
+```
 
-## Development
+4. Write the SQL to alter the fans table to have a artist_id column type integer?
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```sql
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```
 
-## Contributing
+5. Write the SQL to add yourself as a fan of the Black Eyed Peas? ArtistId **169**
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/DakotaLMartinez/intro_to_sql. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/DakotaLMartinez/intro_to_sql/blob/master/CODE_OF_CONDUCT.md).
+```sql
+
+```
+
+6. How would you update your name in the fans table to be your new name? Use Ruby file.
+
+   ```sql
+    
+   ```
+* **Explore how to use sqlite3 with ruby file**
+    * Gem sqlite3
+    * See documentation
+    * db = SQLite3::Database.new('chinook.db')
+    * How to run SQL query in ruby?
+        * `db.execute('UPDATE fans_new SET name = "NICK" WHERE id = 10')`
+        * `db.execute(' UPDATE fans SET name = ? WHERE id=?', name, id)`
 
 
-## License
+* **Perform CRUD actions across related tables**
+7. Write the SQL to display an artists name next to their album title
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+```sql
 
-## Code of Conduct
+```
 
-Everyone interacting in the IntroToSql project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/DakotaLMartinez/intro_to_sql/blob/master/CODE_OF_CONDUCT.md).
+8. Write the SQL to display artist name, album name and number of tracks on that album
+
+```sql
+
+```
+
+---
+### Tasks:
+
+1. Install the SQLite Browser if you haven't already [here](http://sqlitebrowser.org/)
+2. Write the SQL to return fans that are not fans of the black eyed peas. ArtistId **169**
+
+```sql
+
+```
+3. Write the SQL to return the name of all of the artists in the 'Pop' Genre
+
+```sql
+
+```
