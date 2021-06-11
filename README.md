@@ -4,7 +4,7 @@
 
 ### Learning Goals:
 - [x] Explain persistence, the need for using SQL, and difference between SQLite3 and SQL
-    * Explore provided data through [DB Browser for SQLite Browser](https://sqlitebrowser.org/)
+    * Explore provided data through [DB Browser for SQLite](https://sqlitebrowser.org/dl/)
     * Also, the [Sqlite extension for VSCode](https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite) is a good resource for navigating through your DB right within VSCode.
 - [x] Perform CRUD actions on a single table
 - [x] Explore how to use sqlite3 with ruby file
@@ -33,13 +33,45 @@
         * How to open sqlite3 in terminal
         * Database schema
 
+KEY SQL Clauses to review:
+
+SELECT 
+AS
+FROM
+WHERE 
+INNER JOIN
+GROUP BY 
+HAVING
+
+We'll start by working in the [DB Browser for SQLite](https://sqlitebrowser.org/dl/), so make sure you install that if you haven't yet. I'd also grab the VSCode extension
+
 In order to use sqlite3 in our code, we'll want to install the [sqlite3 gem](https://github.com/sparklemotion/sqlite3-ruby). To do that, we can run:
 
 ```bash
 bundle add sqlite3
 ```
 
-If you've cloned this repo, the Gemfile already includes sqlite3. After you've done that, you can check out the [sample code they offer on their GitHub repo](https://github.com/sparklemotion/sqlite3-ruby). I've included it below for reference:
+If you've cloned this repo, the Gemfile already includes sqlite3. After you've done that, you'll want to open up the `bin/console` file to create a `DB` constant that we can use to execute SQL statements within the console.
+
+```rb
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "intro_to_sql"
+
+# You can add fixtures and/or initialization code here to make experimenting
+# with your gem easier. You can also use a different console, if you like.
+
+# (If you use this, don't forget to add pry to your Gemfile!)
+# require "pry"
+# Pry.start
+
+DB = SQLite3::Database.new "db/Chinook_Sqlite.sqlite", results_as_hash: true
+
+require "irb"
+IRB.start(__FILE__)
+
+```
 
 ```rb
 require "sqlite3"
