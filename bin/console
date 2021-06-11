@@ -10,5 +10,51 @@ require "intro_to_sql"
 # require "pry"
 # Pry.start
 
+require "sqlite3"
+
+# Open a database
+# DB = SQLite3::Database.new "test.dB", results_as_hash: true
+
+# # Create a table
+# rows = DB.execute <<-SQL
+#   CREATE TABLE IF NOT EXISTS numbers (
+#     name VARCHAR(30),
+#     val INT
+#   );
+# SQL
+
+# # Execute a few inserts
+# {
+#   "one" => 1,
+#   "two" => 2,
+# }.each do |pair|
+#   DB.execute "insert into numbers values ( ?, ? )", pair
+# end
+
+# # Find a few rows
+# DB.execute( "select * from numbers" ) do |row|
+#   p row
+# end
+
+# # Create another table with multiple columns
+
+# DB.execute <<-SQL
+#   CREATE TABLE IF NOT EXISTS students (
+#     name VARCHAR(50),
+#     email VARCHAR(50),
+#     grade VARCHAR(5),
+#     blog VARCHAR(50)
+#   );
+# SQL
+
+# # Execute inserts with parameter markers
+# DB.execute("INSERT INTO students (name, email, grade, blog) 
+#             VALUES (?, ?, ?, ?)", ["Jane", "me@janedoe.com", "A", "http://blog.janedoe.com"])
+
+# DB.execute( "select * from students" ) do |row|
+#   p row
+# end
+
+
 require "irb"
 IRB.start(__FILE__)

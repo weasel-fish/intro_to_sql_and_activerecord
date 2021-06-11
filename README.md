@@ -1,7 +1,5 @@
 # Intro to SQL
 
-# Intro to SQL
-
 ### Learning Goals:
 - [x] Explain persistence, the need for using SQL, and difference between SQLite3 and SQL
     * Explore provided data through [DB Browser for SQLite Browser](https://sqlitebrowser.org/)
@@ -213,7 +211,7 @@ Here's some [SQL reference](https://www.sqlitetutorial.net/sqlite-cheat-sheet/) 
 1. Write the SQL to return all of the rows in the artists table?
 
 ```SQL
-
+SELECT * FROM Artist WHERE name = 'Black Sabbath'
 ```
 
 2. Write the SQL to select the artist with the name "Black Sabbath"
