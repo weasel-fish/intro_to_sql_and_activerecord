@@ -10,5 +10,7 @@ require "intro_to_sql"
 # require "pry"
 # Pry.start
 
+DB = SQLite3::Database.new "db/Chinook_Sqlite.sqlite", results_as_hash: true
+
 require "irb"
 IRB.start(__FILE__)
