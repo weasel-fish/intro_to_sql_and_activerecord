@@ -33,15 +33,72 @@
         * How to open sqlite3 in terminal
         * Database schema
 
+# Getting Started
+
+- Clone this repo to your machine 
+- open the folder in VSCode.
+- Run Shift Command/Ctrl P
+- Type in Sqlite: Open Database and select it from the dropdown
+- Select db/Chinook_Sqlite.sqlite from the dropdown that appears
+- The SQLIITE EXPLORER should appear in the bottom left of the file explorer
+- This will allow you to navigate through the tables in your database, see their columns and..
+- by pressing the play button that appears when you hover over a table name you can see all of the rows in that table
+
+
+Making Queries on VSCode Sqlite extension
+
+- Run Shift Command/Ctrl P
+- Type Sqlite: Quick Query 
+- Select db/Chinook_Sqlite.sqlite from the dropdown that appears
+- and an input will appear at the top, where you can type in SQL.
+- Hit enter the Query will run against the database and the results will appear in a new window in VSCode in a table 
+
+
 KEY SQL Clauses to review:
 
+- SELECT - get information from a table in your database. SELECT is passed a comma separated list of the column names that you want values for. (or * if you want all column values)
+- AS - Used to change the name of a column in the table that results from a query
+- FROM - indicates the table you want data from.
+- WHERE - allows you to add conditions to the query. You can only return rows where a certain condition is true. One of the most important use cases for this it getting access to related data in other tables.
+- INNER JOIN - allows you to generate a table with information from two tables. If you need to join more than two, you can do multiple INNER JOINS in the same query.
+- ON - allows you to describe how the tables are to be joined together. This is where something like a primary key to foreign key relationship might be used.
+- GROUP BY - used to combine all of the rows together that share a value for a particular column (GROUP BY CustomerId would give you a row for each group of Invoices that share a CustomerId). GROUP BY is generally used with aggregate functions to do things like COUNT, MIN, MAX, AVG of values for another column in the grouped rows.
+- COUNT - an aggregate function that allows you to count the number of rows that are in a group of records. Other aggregate functions are SUM, 
+- HAVING - this is like WHERE, but it's used when you have a GROUP BY clause. So, if you have a query that includes GROUP BY and you need a condition, you use HAVING instead of WHERE.
+- LIMIT - restrict the number of rows returned from the query.
+
+Relationships within SQL:
+
+Primary Key and Foreign Key.
+
+What is a Primary Key?
+
+Primary key is used to identify a row within a table. By default in sqlite3, a primary key is an integer that increases over time as records are added. It's a unique identifier for a row. Now primary key is used twice within the same table. Database manages primary keys for you. When you do an insert the database assigns the primary key. 
+
+What is a Foreign Key?
+
+Foreign key is used to identify a row within another (foreign) table. The foreign key in one table is a refernce to a primary key in another (foreign) table.
+
+Some Examples:
+
+```sql
 SELECT 
-AS
-FROM
-WHERE 
-INNER JOIN
-GROUP BY 
-HAVING
+	*
+FROM Invoice 
+WHERE CustomerId = 14;
+
+SELECT *
+FROM Customer
+WHERE CustomerId = 14;
+
+SELECT 
+	Customer.FirstName, 
+	Customer.LastName,
+	Invoice.*
+FROM Invoice
+INNER JOIN Customer ON Invoice.CustomerId = Customer.CustomerId
+WHERE Invoice.CustomerId = 14;
+```
 
 We'll start by working in the [DB Browser for SQLite](https://sqlitebrowser.org/dl/), so make sure you install that if you haven't yet. I'd also grab the VSCode extension
 
