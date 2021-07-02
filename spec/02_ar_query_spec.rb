@@ -1,4 +1,5 @@
 require "intro_to_sql/ar_queries"
+require "pry"
 
 RSpec.describe "ActiveRecord queries" do 
   before(:all) do 
@@ -24,6 +25,7 @@ RSpec.describe "ActiveRecord queries" do
   describe "change_yourself_to_be_a_fan_of_led_zeppelin" do 
     it "updates the fan object created in the previous test to now be a fan of Led Zeppelin. (Again, check the artists table to find the correct foreign key)." do
       fan = Fan.where(name: NAME, artist_id: 50).last
+      binding.pry
       change_yourself_to_be_a_fan_of_led_zeppelin
       expect(fan).to exist, "Fan was not found. Make sure that you've updated the NAME constant to match the name you're giving the new Fan."
       fan.reload
@@ -34,6 +36,7 @@ RSpec.describe "ActiveRecord queries" do
   describe "remove_yourself_as_a_fan" do 
     it "removes the fan object updated in the previous test"  do 
       fan = Fan.where(name: NAME, artist_id: 22).last
+      binding.pry
       expect(fan).to exist, "No fan was found. Make sure that you've updated the NAME constant to match the name used in your method calls."
       remove_yourself_as_a_fan
       expect(Fan.all).not_to include(fan)

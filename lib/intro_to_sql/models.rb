@@ -8,3 +8,10 @@ ActiveRecord::Base.establish_connection(
 ActiveRecord::Base.logger = Logger.new(STDOUT)
 
 ## Add any classes you want to work with below
+
+class Fan < ActiveRecord::Base
+
+end
+
+class Artist < ActiveRecord::Base
+end
