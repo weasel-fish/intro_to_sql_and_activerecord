@@ -8,4 +8,6 @@ gem "rspec", "~> 3.0"
 
 gem "pry", "~> 0.14.1"
 
-gem "sqlite3", "~> 1.4"
+gem "sqlite3", "< 1.4"
+
+gem "activerecord", "~> 5.2", require: 'active_record'
