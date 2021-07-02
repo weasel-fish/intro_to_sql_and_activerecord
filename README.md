@@ -1,60 +1,68 @@
-# Intro to SQL
-
-# Intro to SQL
+# Intro to SQL & ActiveRecord
 
 ### Learning Goals:
-- [x] Explain persistence, the need for using SQL, and difference between SQLite3 and SQL
-    * Explore provided data through [DB Browser for SQLite](https://sqlitebrowser.org/dl/)
-    * Also, the [Sqlite extension for VSCode](https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite) is a good resource for navigating through your DB right within VSCode.
-- [x] Perform CRUD actions on a single table
-- [x] Explore how to use sqlite3 with ruby file
-- [x] Perform CRUD actions across related tables
+- [] Explain persistence, the need for using SQL, and difference between SQLite3 and SQL
+  * Install the [Sqlite extension for VSCode](https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite) . It's a good resource for navigating through your DB right within VSCode.
+  * You can also explore provided data through [DB Browser for SQLite](https://sqlitebrowser.org/dl/)
+- [] Perform CRUD actions on a single table
+- [] Explore how to use sqlite3 with a ruby file
+- [] Perform CRUD actions using SQL
+- [] Perform CRUD actions using ActiveRecord
 
 ---
+
+## Important Resources for Today
+- [Sqlite tutorial](https://www.sqlitetutorial.net/)
+- [Sqlite Cheatsheet]((https://www.sqlitetutorial.net/sqlite-cheat-sheet/))
+- [RailsGuides on ActiveRecord](https://guides.rubyonrails.org/v5.2/active_record_basics.html)
+- [Rails documentation (section on ActiveRecord)](https://api.rubyonrails.org/v5.2.6/)
+
+## Topics
 * **Explain persistence and the need for using SQL**
-    * Persistence
-        * Data is there no matter if we closed the program
-    * Define SQL
-        * SQL stands for Structured Query Language and is a language that allows us to do:
-            * Store / persist information
-            * Manipulate that information
-        * What is sql is for?
-            * Information persistence
-            * Want stuff to stick around after the program ends
-            * Allow our data manipulation code to be programming language agnostic
-        * What kind of operations can we do in SQL?
-            * CRUD
-    * Explain the difference between SQLite and SQL**
-        * SQL is a query language. Sqlite is an embeddable open source relational database management system (RDBMS). Other examples include PostgresQL, MySQL, SQLServer, Oracle Database. The first 2 of these are open source, the rest are not and require some sort of account to access. These are sometimes used for internal corporate databases.
- 
-    * Explore provided data through SQLite Browser**
-        * Open ‘chinook.db’ in SQLite Browser
-        * How to see the data?
-        * How to open sqlite3 in terminal
-        * Database schema
+  * Persistence
+    * Data is there no matter if we closed the program
+  * Define SQL
+    * SQL stands for Structured Query Language and is a language that allows us to do:
+      * Store / persist information
+      * Manipulate that information
+    * What is sql is for?
+      * Information persistence
+      * Want stuff to stick around after the program ends
+      * Allow our data manipulation code to be programming language agnostic
+    * What kind of operations can we do in SQL?
+    * CRUD
+  * Explain the difference between SQLite and SQL**
+    * SQL is a query language. Sqlite is an embeddable open source relational database management system (RDBMS). Other examples include PostgresQL, MySQL, SQLServer, Oracle Database. The first 2 of these are open source, the rest are not and require some sort of account to access. These are sometimes used for internal corporate databases.
+  * **What is an RDBMS good for?** A Relational Database Management System is designed to keep track of related data stored in different tables. It allows us to organize the data in groups while maintaining relationships between particular rows across multiple tables. 
+  * **Single Source of Truth for relationships** - If we were to model a has many/belongs to relationship within a database, which table would store the reference? 
+    * The one that belongs to a related row in the other 
+    * or
+    * The one that has many related rows in the other 
+* **Technical Terms for the columns that help us establish relationships between rows in separate tables**
 
 # Getting Started
 
 - Clone this repo to your machine 
 - open the folder in VSCode.
-- Run Shift Command/Ctrl P
+- Run Shift + Command/Ctrl + P
 - Type in Sqlite: Open Database and select it from the dropdown
 - Select db/Chinook_Sqlite.sqlite from the dropdown that appears
-- The SQLIITE EXPLORER should appear in the bottom left of the file explorer
-- This will allow you to navigate through the tables in your database, see their columns and..
-- by pressing the play button that appears when you hover over a table name you can see all of the rows in that table
+- The SQLIITE EXPLORER should appear in the bottom left of the file explorer tab within the sidebar.
+- This will allow you to navigate through the tables in your database, see their columns and...
+- by pressing the play button that appears when you hover over a table name you can see all of the rows in that table. 
+- **IMPORTANT NOTE**: If you already have a SQLITE window open that comes from this extension, the query will appear there and it won't be pulled into focus. A new tab doesn't open and the old tab where the results will be visible not pulled into focus. So, you'll need to navigate there manually if it's not already visible to you.
 
 
-Making Queries on VSCode Sqlite extension
+### Making Queries on VSCode Sqlite extension
 
-- Run Shift Command/Ctrl P
-- Type Sqlite: Quick Query 
-- Select db/Chinook_Sqlite.sqlite from the dropdown that appears
-- and an input will appear at the top, where you can type in SQL.
-- Hit enter the Query will run against the database and the results will appear in a new window in VSCode in a table 
+- Run Shift + Command/Ctrl + P
+- Type `Sqlite: Quick Query` 
+- Select `db/Chinook_Sqlite.sqlite` from the dropdown that appears
+- an input will appear at the top of the window where you can type in SQL.
+- Hit enter after you type the Query and it will run against the database and the results will appear in a new window in VSCode in a table. Note, if you want to view multiple tables at once, you can separate queries by a `;` to do so.
 
 
-KEY SQL Clauses to review:
+### Key SQL Clauses for reference:
 
 - SELECT - get information from a table in your database. SELECT is passed a comma separated list of the column names that you want values for. (or * if you want all column values)
 - AS - Used to change the name of a column in the table that results from a query
@@ -67,306 +75,155 @@ KEY SQL Clauses to review:
 - HAVING - this is like WHERE, but it's used when you have a GROUP BY clause. So, if you have a query that includes GROUP BY and you need a condition, you use HAVING instead of WHERE.
 - LIMIT - restrict the number of rows returned from the query.
 
-Relationships within SQL:
+### You can refer to the [SQLITE cheatsheet](https://www.sqlitetutorial.net/sqlite-cheat-sheet/) as a resource for how to use these queries
+
+## Relationships within SQL
 
 Primary Key and Foreign Key.
 
-What is a Primary Key?
+### What is a Primary Key?
 
 Primary key is used to identify a row within a table. By default in sqlite3, a primary key is an integer that increases over time as records are added. It's a unique identifier for a row. Now primary key is used twice within the same table. Database manages primary keys for you. When you do an insert the database assigns the primary key. 
 
-What is a Foreign Key?
+### What is a Foreign Key?
 
-Foreign key is used to identify a row within another (foreign) table. The foreign key in one table is a refernce to a primary key in another (foreign) table.
+Foreign key is used to identify a row within another (foreign) table. The foreign key in one table is a reference to a primary key in another (foreign) table.
 
 Some Examples:
 
 ```sql
-SELECT 
-	*
-FROM Invoice 
-WHERE CustomerId = 14;
+SELECT *
+FROM invoices 
+WHERE customer_id = 14;
 
 SELECT *
-FROM Customer
-WHERE CustomerId = 14;
+FROM customers
+WHERE id = 14;
 
 SELECT 
-	Customer.FirstName, 
-	Customer.LastName,
-	Invoice.*
-FROM Invoice
-INNER JOIN Customer ON Invoice.CustomerId = Customer.CustomerId
-WHERE Invoice.CustomerId = 14;
+	customers.first_name, 
+	customers.last_name,
+	invoices.*
+FROM invoices
+INNER JOIN customers ON invoices.customer_id = customers.id
+WHERE invoices.customer_id = 14;
 ```
 
-We'll start by working in the [DB Browser for SQLite](https://sqlitebrowser.org/dl/), so make sure you install that if you haven't yet. I'd also grab the VSCode extension
+## Discussion - How would we model our Twitter domain using database tables? What columns would each table have?
 
-In order to use sqlite3 in our code, we'll want to install the [sqlite3 gem](https://github.com/sparklemotion/sqlite3-ruby). To do that, we can run:
+users
+
+likes
+
+tweets
+
+We'll start by working in the [VSCode extension for Sqlite](https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite), so make sure you've got it installed. If you're not using VS Code, you can also check out the [DB Browser for SQLite](https://sqlitebrowser.org/dl/), so make sure you install one of those if you haven't yet.
+
+In order to use sqlite3 in our code, we'll need to install the [sqlite3 gem](https://github.com/sparklemotion/sqlite3-ruby). If you've cloned this repo, the Gemfile already includes the correct version of sqlite3. But if you were doing this on your own, you could run:
 
 ```bash
-bundle add sqlite3
+bundle add sqlite3 -v "< 1.4"
 ```
 
-If you've cloned this repo, the Gemfile already includes sqlite3. After you've done that, you'll want to open up the `bin/console` file to create a `DB` constant that we can use to execute SQL statements within the console.
+We add the version here because we'll be using a slightly older version of ActiveRecord that doesn't play well with newer versions of the `sqlite` gem.
+
+Now, Let's take a look at the `query.rb` file.
 
 ```rb
-#!/usr/bin/env ruby
+class Query
+  DB = SQLite3::Database.new("db/Chinook_Sqlite.sqlite", results_as_hash: true)
 
-require "bundler/setup"
-require "intro_to_sql"
-
-# You can add fixtures and/or initialization code here to make experimenting
-# with your gem easier. You can also use a different console, if you like.
-
-# (If you use this, don't forget to add pry to your Gemfile!)
-# require "pry"
-# Pry.start
-
-DB = SQLite3::Database.new "db/Chinook_Sqlite.sqlite", results_as_hash: true
-
-require "irb"
-IRB.start(__FILE__)
-
-```
-
-```rb
-require "sqlite3"
-
-# Open a database
-db = SQLite3::Database.new "test.db"
-
-# Create a table
-rows = db.execute <<-SQL
-  create table numbers (
-    name varchar(30),
-    val int
-  );
-SQL
-
-# Execute a few inserts
-{
-  "one" => 1,
-  "two" => 2,
-}.each do |pair|
-  db.execute "insert into numbers values ( ?, ? )", pair
-end
-
-# Find a few rows
-db.execute( "select * from numbers" ) do |row|
-  p row
-end
-
-# Create another table with multiple columns
-
-db.execute <<-SQL
-  create table students (
-    name varchar(50),
-    email varchar(50),
-    grade varchar(5),
-    blog varchar(50)
-  );
-SQL
-
-# Execute inserts with parameter markers
-db.execute("INSERT INTO students (name, email, grade, blog) 
-            VALUES (?, ?, ?, ?)", ["Jane", "me@janedoe.com", "A", "http://blog.janedoe.com"])
-
-db.execute( "select * from students" ) do |row|
-  p row
-end
-```
-    
-If we want to play around with this code, we can copy it into our ./bin/console file and rename `db` to `DB`:
-
-```rb
-#!/usr/bin/env ruby
-
-require "bundler/setup"
-require "intro_to_sql"
-
-# You can add fixtures and/or initialization code here to make experimenting
-# with your gem easier. You can also use a different console, if you like.
-
-# (If you use this, don't forget to add pry to your Gemfile!)
-# require "pry"
-# Pry.start
-
-require "sqlite3"
-
-# Open a database
-DB = SQLite3::Database.new "test.db"
-
-# Create a table
-rows = DB.execute <<-SQL
-  create table numbers (
-    name varchar(30),
-    val int
-  );
-SQL
-
-# Execute a few inserts
-{
-  "one" => 1,
-  "two" => 2,
-}.each do |pair|
-  DB.execute "insert into numbers values ( ?, ? )", pair
-end
-
-# Find a few rows
-DB.execute( "select * from numbers" ) do |row|
-  p row
-end
-
-# Create another table with multiple columns
-
-DB.execute <<-SQL
-  create table students (
-    name varchar(50),
-    email varchar(50),
-    grade varchar(5),
-    blog varchar(50)
-  );
-SQL
-
-# Execute inserts with parameter markers
-DB.execute("INSERT INTO students (name, email, grade, blog) 
-            VALUES (?, ?, ?, ?)", ["Jane", "me@janedoe.com", "A", "http://blog.janedoe.com"])
-
-DB.execute( "select * from students" ) do |row|
-  p row
-end
-require "pry"
-Pry.start
-```
-
-Now, we can interact with the sqlite database by using the `execute` command on the `DB` object. If we run:
-
-```rb
-DB.execute( "select * from students" ) do |row|
-  p row
+  def self.run(query)
+    query_to_execute = query.is_a?(Symbol) ? self.send(query) : query
+    if query_to_execute.blank?
+      "Please add your SQL query to the appropriate method"
+    else
+      DB.execute(query_to_execute)
+    end
+  end
 end
 ```
 
-We'll see something like this:
+The class has a constant called `DB` that is an instance of the `Sqlite3::Database` class. We can use this constant to execute SQL queries on the database file passed as an argument. We have a class method called `run` that we can pass either a string or a symbol as an argument. If we pass a symbol it will call the method matching the symbol's name and use its return value as the query. If we pass a string, the string itself will be the query executed.
+
+It's set up this way so that we can test things out in the console by running.
+
+```bash
+./bin/console
+```
+
+And then:
 
 ```rb
-["Jane", "me@janedoe.com", "A", "http://blog.janedoe.com"]
+Query.run("INSERT SQL HERE")
 ```
 
-If you run:
+This will allow you to execute SQL statements from ruby code and see the results as an array of hashes.
+
+## Exercise 1
+
+Run the specs using the following command:
+
+```bash
+rspec spec/01_query_spec.rb
+```
+
+Here are your tasks:
+
+```txt
+Query
+  .run(query)
+    takes a query as an argument and executes the query on the database object (already complete)
+  .all_artists_query
+    returns the SQL query that retrieves all of the Artists in the DB
+  .create_fans
+    returns a SQL query that creates the 'fans' table (if it doesn't already exist) that has an autoincrementing id column (integer) as a primary key and a name column (string)
+  .add_artist_id_to_fans
+    adds an artist_id integer foreign key to the fans table
+  .make_yourself_a_fan_of_the_black_eyed_peas
+    adds your name to the fans table as a fan of the black eyed peas (artist_id **169**)
+  .update_your_fan_to_be_a_fan_of_led_zeppelin
+    updates the artist_id of the fan you just created to point to Led Zeppelin
+  remove_yourself_as_a_fan
+    removes the fan from the fans table
+```
+
+All SQL queries are formatted using a [heredoc](https://www.rubyguides.com/2018/11/ruby-heredoc/) to allow us to write multi-line strings without causing issues with escaped new line characters.
+
+Here's some [SQL reference](https://www.sqlitetutorial.net/sqlite-cheat-sheet/) we can use to help construct our queries
+
+
+## Introducing ActiveRecord
+
+- ActiveRecord is an ORM
+  - class <=> table
+  - instance <=> row
+- ActiveRecord relies on inheritance
+  - we tell our models to inherit from an `ActiveRecord::Base` class and they in turn can utilize methods described in the ActiveRecord documentation to interact with our database using generated SQL statements.
+
+Read through the docs linked below as you work through the second exercise:
+
+- [RailsGuides on ActiveRecord](https://guides.rubyonrails.org/v5.2/active_record_basics.html)
+- [Rails documentation (section on ActiveRecord)](https://api.rubyonrails.org/v5.2.6/)
+
+## Exercise 2
+
+You'll be coding in 2 files:
+- `lib/intro_to_sql/models.rb`
+- `lib/intro_to_sql/ar_queries.rb`
+
+You'll run the following command to get test output:
 
 ```rb
-DB.execute( "select * from numbers" ) do |row|
-  p row
-end
-```
-You should see something like this:
-
-```rb
-["one", 1]
-["two", 2]
+rspec spec/02_ar_query_spec.rb
 ```
 
-For our purposes, we'll be working with the Chinook db. To do that, we'll want to open the database and pass the path to chinook instead of test.db. The `open` method and the `new` method will actually do the same thing because they are aliased within the sqlite3 source code. So, to set up our playground in the console, we'll want to remove the other code and just initialize the database using the path to the chinook db.
+## Homework
 
-```rb
-#!/usr/bin/env ruby
+Accomplish the following CRUD tasks using ActiveRecord and describe the SQL generated by your ActiveRecord method calls.
 
-require "bundler/setup"
-require "intro_to_sql"
-
-# You can add fixtures and/or initialization code here to make experimenting
-# with your gem easier. You can also use a different console, if you like.
-
-# (If you use this, don't forget to add pry to your Gemfile!)
-# require "pry"
-# Pry.start
-
-require "sqlite3"
-
-# Open a database
-DB = SQLite3::Database.new "db/Chinook_Sqlite.sqlite"
-
-
-require "pry"
-Pry.start
-
-
-```
-
-Here's some [SQL reference](https://www.sqlitetutorial.net/sqlite-cheat-sheet/) we can use to help construct our queries:
-
-
-* **Perform CRUD actions on a single table**
-1. Write the SQL to return all of the rows in the artists table?
-
-```SQL
-
-```
-
-2. Write the SQL to select the artist with the name "Black Sabbath"
-
-```SQL
-
-```
-
-3. Write the SQL to create a table named 'fans' with an autoincrementing ID that's a primary key and a name field of type text
-
-```sql
-
-```
-
-4. Write the SQL to alter the fans table to have a artist_id column type integer?
-
-```sql
-
-```
-
-5. Write the SQL to add yourself as a fan of the Black Eyed Peas? ArtistId **169**
-
-```sql
-
-```
-
-6. How would you update your name in the fans table to be your new name? Use Ruby file.
-
-   ```sql
-    
-   ```
-* **Explore how to use sqlite3 with ruby file**
-    * Gem sqlite3
-    * See documentation
-    * db = SQLite3::Database.new('chinook.db')
-    * How to run SQL query in ruby?
-        * `db.execute('UPDATE fans_new SET name = "NICK" WHERE id = 10')`
-        * `db.execute(' UPDATE fans SET name = ? WHERE id=?', name, id)`
-
-
-* **Perform CRUD actions across related tables**
-7. Write the SQL to display an artists name next to their album title
-
-```sql
-
-```
-
-8. Write the SQL to display artist name, album name and number of tracks on that album
-
-```sql
-
-```
-
----
-### Tasks:
-
-1. Install the SQLite Browser if you haven't already [here](http://sqlitebrowser.org/)
-2. Write the SQL to return fans that are not fans of the black eyed peas. ArtistId **169**
-
-```sql
-
-```
-3. Write the SQL to return the name of all of the artists in the 'Pop' Genre
-
-```sql
-
-```
+1. Retrieves all of the albums that belong to a particular artist.
+2. Create a new Playlist
+3. Add a Track to your new Playlist
+4. Remove a Track from your new Playlist
+5. Update the quantity of an item within an InvoiceLine

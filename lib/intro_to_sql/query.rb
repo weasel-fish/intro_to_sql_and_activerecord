@@ -2,7 +2,12 @@ class Query
   DB = SQLite3::Database.new("db/Chinook_Sqlite.sqlite", results_as_hash: true)
 
   def self.run(query)
-    query.is_a?(Symbol) ? DB.execute(self.send(query)) : DB.execute(query)
+    query_to_execute = query.is_a?(Symbol) ? self.send(query) : query
+    if query_to_execute.blank?
+      "Please add your SQL query to the appropriate method"
+    else
+      DB.execute(query_to_execute)
+    end
   end
 
   def self.your_name
@@ -12,14 +17,7 @@ class Query
   # write a query that returns all the artists in the database
   def self.all_artists_query
     <<-SQL
-      
-    SQL
-  end
-
-  # write a query that returns the black sabbath artist
-  def self.black_sabbath_query
-    <<-SQL
-      
+     
     SQL
   end
 
@@ -37,32 +35,24 @@ class Query
     SQL
   end
 
-  # Write the SQL to add yourself as a fan of the Black Eyed Peas? ArtistId **169**
+  # Write the SQL to add yourself as a fan of the Black Eyed Peas? artist_id **169**
   def self.make_yourself_a_fan_of_the_black_eyed_peas
     <<-SQL
       
     SQL
   end
 
-  # write a SQL query to update your name in the fans table
-  def self.update_your_name_in_fans
+  # write a SQL query to update your fan row so that you're a fan of Led Zeppelin **id of 22**
+  def self.update_your_fan_to_be_a_fan_of_led_zeppelin
     <<-SQL
       
     SQL
   end
 
-  # write the SQL to display an artists name next to their album title
-  def self.select_artist_name_and_album_title
+  # Write a SQL query to remove yourself as a fan of Led Zeppelin
+  def self.remove_yourself_as_a_fan
     <<-SQL
-      
+     
     SQL
   end
-
-  # write the SQL to display artist name, album name and number of tracks on that album
-  def self.select_artist_name_album_name_and_track_count
-    <<-SQL
-      
-    SQL
-  end
-
 end
